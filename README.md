@@ -12,6 +12,6 @@ With our trading API, you have the flexibility to develop your own custom web an
 Another frequent use-case of our API is to extend the existing functionality of ETNA Trader by creating custom widgets. With our JavaScript-based widgets, you can provide unique and specialized features to your users. For instance, you can create a widget displaying the user's most frequently traded securities or a widget showcasing the list of users' positions with the highest profit or loss.
 
 ## Support
-If you have any questions or need assistance with our Trading API for orders and quotes, our support team is here to help. Feel free to reach out to us at support@etnatrader.com, and we'll be glad to assist you.
+If you have any questions or need assistance with our Trading API, our support team is here to help. Feel free to reach out to us at support@etnatrader.com, and we'll be glad to assist you.
 
 We look forward to partnering with you to deliver an exceptional trading experience to your customers.
