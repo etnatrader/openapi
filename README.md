@@ -14,4 +14,4 @@ Another frequent use-case of our API is to extend the existing functionality of 
 ## Support
 If you have any questions or need assistance with our Trading API for orders and quotes, our support team is here to help. Feel free to reach out to us at support@etnatrader.com, and we'll be glad to assist you.
 
-Thank you for choosing ETNA Trader's Trading API for orders and quotes! We look forward to partnering with you to deliver an exceptional trading experience to your customers.
+We look forward to partnering with you to deliver an exceptional trading experience to your customers.
