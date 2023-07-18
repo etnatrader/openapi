@@ -1,7 +1,7 @@
-# ETNA Trading API - Orders and Quotes Specification
+# ETNA Trading API - Orders Specification
 ETNA Trader is a cross-platform trading suite that empowers brokers to offer comprehensive trading functionality to their customers. 
 ## Overview
-Welcome to the ETNA Trading API documentation! This repository contains a portion of our OpenAPI specification that focuses specifically on orders and quotes.
+Welcome to the ETNA Trading API documentation! This repository contains a portion of our OpenAPI specification that focuses specifically on orders.
 
 For a more extensive documentation covering other features, such as account management, users, positions, and more, please visit our full API Documentation available at https://help.etnatrader.com/web-api/introduction.
 
