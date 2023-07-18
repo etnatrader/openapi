@@ -1,0 +1,826 @@
+{
+   "openapi":"3.03",
+   "info":{
+      "version":"v1",
+      "title":"ETNA Trader API 1.0",
+      "description":"This OpenAPI specification document outlines the API methods and endpoints specifically related to order management in the ETNA Trader platform."
+   },
+   "host":"pub-api-trader-demo-prod.etnasoft.us",
+   "basePath":"/api",
+   "schemes":[
+      "https"
+   ],
+   "paths":{
+      "/v{version}/accounts/{accountId}/orders/{orderId}":{
+         "get":{
+            "tags":[
+               "Orders"
+            ],
+            "summary":"Get order",
+            "description":"This endpoint enables you to retrieve information about a particular order.",
+            "operationId":"Orders_GetOrder",
+            "consumes":[
+               
+            ],
+            "produces":[
+               "application/json",
+               "text/json"
+            ],
+            "parameters":[
+               {
+                  "name":"accountId",
+                  "in":"path",
+                  "description":"Unique identifier of the trading account whose order’s information needs to be retrieved.",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int32"
+               },
+               {
+                  "name":"orderId",
+                  "in":"path",
+                  "description":"ID of the order whose information needs to be retrieved.",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int32"
+               },
+               {
+                  "name":"version",
+                  "in":"path",
+                  "description":"This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your environment, leave it at 1.0.",
+                  "required":true,
+                  "type":"string",
+                  "default":"1.0"
+               },
+               {
+                  "name":"Authorization",
+                  "in":"header",
+                  "description":"This is the authorization token that you retrieved from the first endpoint (/token).",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"Et-App-Key",
+                  "in":"header",
+                  "description":"This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful request, a JSON with the order’s detailed information is returned.",
+                  "schema":{
+                     "$ref":"#/definitions/OrderResource"
+                  }
+               },
+               "403":{
+                  "description":"The provided Et-App-Key is incorrect."
+               },
+               "500":{
+                  "description":"Internal server error"
+               },
+               "401":{
+                  "description":"The access level of the provided authorization token is not sufficient to perform this operation."
+               },
+               "422":{
+                  "description":"A validation error occurred while processing the request."
+               }
+            }
+         },
+         "put":{
+            "tags":[
+               "Orders"
+            ],
+            "summary":"Replace an order",
+            "description":"This endpoint enables you to modify an existing order.",
+            "operationId":"Orders_ReplaceOrder",
+            "consumes":[
+               "application/json",
+               "text/json"
+            ],
+            "produces":[
+               "application/json",
+               "text/json"
+            ],
+            "parameters":[
+               {
+                  "name":"modifyParams",
+                  "in":"body",
+                  "description":"JSON data that contains updated information about the modified order.",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/ModifyOrderResource"
+                  }
+               },
+               {
+                  "name":"accountId",
+                  "in":"path",
+                  "description":"Unique identifier of the trading account on which a new order is to be modified.",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int32"
+               },
+               {
+                  "name":"orderId",
+                  "in":"path",
+                  "description":"ID of the order that needs to be modified.",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int32"
+               },
+               {
+                  "name":"version",
+                  "in":"path",
+                  "description":"This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your environment, leave it at 1.0.",
+                  "required":true,
+                  "type":"string",
+                  "default":"1.0"
+               },
+               {
+                  "name":"Authorization",
+                  "in":"header",
+                  "description":"This is the authorization token that you retrieved from the first endpoint (/token).",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"Et-App-Key",
+                  "in":"header",
+                  "description":"This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful request, JSON data with the updated order information is returned, indicating if the order was successfully modified.",
+                  "schema":{
+                     "$ref":"#/definitions/OrderResource"
+                  }
+               },
+               "409":{
+                  "description":"Failed to replace the order."
+               },
+               "403":{
+                  "description":"The provided Et-App-Key is incorrect."
+               },
+               "500":{
+                  "description":"Internal server error"
+               },
+               "401":{
+                  "description":"The access level of the provided authorization token is not sufficient to perform this operation."
+               },
+               "422":{
+                  "description":"A validation error occurred while processing the request."
+               }
+            }
+         },
+         "delete":{
+            "tags":[
+               "Orders"
+            ],
+            "summary":"Cancel an order",
+            "description":"This endpoint enables you to cancel an existing order.",
+            "operationId":"Orders_CancelOrder",
+            "consumes":[
+               
+            ],
+            "produces":[
+               "application/json",
+               "text/json"
+            ],
+            "parameters":[
+               {
+                  "name":"accountId",
+                  "in":"path",
+                  "description":"Unique identifier of the trading account whose order needs to be cancelled.",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int32"
+               },
+               {
+                  "name":"orderId",
+                  "in":"path",
+                  "description":"ID of the order that needs to be cancelled.",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int32"
+               },
+               {
+                  "name":"version",
+                  "in":"path",
+                  "description":"This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your environment, leave it at 1.0.",
+                  "required":true,
+                  "type":"string",
+                  "default":"1.0"
+               },
+               {
+                  "name":"Authorization",
+                  "in":"header",
+                  "description":"This is the authorization token that you retrieved from the first endpoint (/token).",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"Et-App-Key",
+                  "in":"header",
+                  "description":"This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"OK",
+                  "schema":{
+                     "type":"object"
+                  }
+               },
+               "204":{
+                  "description":"Successful request, the order was successfully cancelled."
+               },
+               "409":{
+                  "description":"A conflict has occurred while attempting to cancel the order."
+               },
+               "403":{
+                  "description":"The provided Et-App-Key is incorrect."
+               },
+               "500":{
+                  "description":"Internal server error"
+               },
+               "401":{
+                  "description":"The access level of the provided authorization token is not sufficient to perform this operation."
+               },
+               "422":{
+                  "description":"A validation error occurred while processing the request."
+               }
+            }
+         }
+      },
+      "/v{version}/accounts/{accountId}/orders/{orderId}/details":{
+         "get":{
+            "tags":[
+               "Orders"
+            ],
+            "summary":"Get order details",
+            "description":"This endpoint enables you to retrieve details about order.",
+            "operationId":"Orders_GetOrderDetails",
+            "consumes":[
+               
+            ],
+            "produces":[
+               "application/json",
+               "text/json"
+            ],
+            "parameters":[
+               {
+                  "name":"accountId",
+                  "in":"path",
+                  "description":"Unique identifier of the trading account whose order’s information needs to be retrieved.",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int32"
+               },
+               {
+                  "name":"orderId",
+                  "in":"path",
+                  "description":"ID of the order whose information needs to be retrieved.",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int32"
+               },
+               {
+                  "name":"version",
+                  "in":"path",
+                  "description":"This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your environment, leave it at 1.0.",
+                  "required":true,
+                  "type":"string",
+                  "default":"1.0"
+               },
+               {
+                  "name":"Authorization",
+                  "in":"header",
+                  "description":"This is the authorization token that you retrieved from the first endpoint (/token).",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"Et-App-Key",
+                  "in":"header",
+                  "description":"This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful request, a JSON with the order’s detailed information is returned.",
+                  "schema":{
+                     "type":"array",
+                     "items":{
+                        "$ref":"#/definitions/OrderDetailsModel"
+                     }
+                  }
+               },
+               "400":{
+                  "description":"User don't have permission."
+               },
+               "403":{
+                  "description":"The provided Et-App-Key is incorrect."
+               },
+               "500":{
+                  "description":"Internal server error"
+               },
+               "401":{
+                  "description":"The access level of the provided authorization token is not sufficient to perform this operation."
+               },
+               "422":{
+                  "description":"A validation error occurred while processing the request."
+               }
+            }
+         }
+      },
+      "/v{version}/accounts/{accountId}/verified/orders/{orderId}":{
+         "get":{
+            "tags":[
+               "Orders"
+            ],
+            "summary":"Get verified order",
+            "description":"This endpoint enables you to validate an existing order.",
+            "operationId":"Orders_GetVerifiedOrder",
+            "consumes":[
+               
+            ],
+            "produces":[
+               "application/json",
+               "text/json"
+            ],
+            "parameters":[
+               {
+                  "name":"accountId",
+                  "in":"path",
+                  "description":"The ID of the trading account from which the order was initially placed.",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int32"
+               },
+               {
+                  "name":"orderId",
+                  "in":"path",
+                  "description":"The ID of the order that is to be validated.",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int32"
+               },
+               {
+                  "name":"version",
+                  "in":"path",
+                  "description":"This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your environment, leave it at 1.0.",
+                  "required":true,
+                  "type":"string",
+                  "default":"1.0"
+               },
+               {
+                  "name":"Authorization",
+                  "in":"header",
+                  "description":"This is the authorization token that you retrieved from the first endpoint (/token).",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"Et-App-Key",
+                  "in":"header",
+                  "description":"This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful request, a JSON with the order’s validation information is returned.",
+                  "schema":{
+                     "$ref":"#/definitions/OrderVerifiedResource"
+                  }
+               },
+               "403":{
+                  "description":"The provided Et-App-Key is incorrect."
+               },
+               "500":{
+                  "description":"Internal server error"
+               },
+               "401":{
+                  "description":"The access level of the provided authorization token is not sufficient to perform this operation."
+               },
+               "422":{
+                  "description":"A validation error occurred while processing the request."
+               }
+            }
+         }
+      },
+      "/v{version}/accounts/{accountId}/orders":{
+         "get":{
+            "tags":[
+               "Orders"
+            ],
+            "summary":"Get filtered orders",
+            "description":"This endpoint enables you to retrieve a selection of orders filtered by a specific query.",
+            "operationId":"Orders_GetOrders",
+            "consumes":[
+               
+            ],
+            "produces":[
+               "application/json",
+               "text/json"
+            ],
+            "parameters":[
+               {
+                  "name":"accountId",
+                  "in":"path",
+                  "description":"Unique identifier of the trading account whose filtered orders need to be retrieved.",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int32"
+               },
+               {
+                  "name":"pageNumber",
+                  "in":"query",
+                  "description":"Number of the page (all orders are split into pages).",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int32"
+               },
+               {
+                  "name":"pageSize",
+                  "in":"query",
+                  "description":"Indicates the number of orders from a particular page that must be returned in the response.",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int32"
+               },
+               {
+                  "name":"filter",
+                  "in":"query",
+                  "description":"Filter query used to retrieve only those orders that satisfy the conditions of the query.",
+                  "required":false,
+                  "type":"string",
+                  "format":"String"
+               },
+               {
+                  "name":"sortField",
+                  "in":"query",
+                  "description":"Field by which all orders should be sorted.",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"desc",
+                  "in":"query",
+                  "description":"Boolean field that indicates if the returned orders should be sorted in descending (true) or ascending (false) order.",
+                  "required":false,
+                  "type":"boolean",
+                  "default":false
+               },
+               {
+                  "name":"isReport",
+                  "in":"query",
+                  "required":false,
+                  "type":"boolean",
+                  "default":false
+               },
+               {
+                  "name":"isBlotter",
+                  "in":"query",
+                  "required":false,
+                  "type":"boolean",
+                  "default":false
+               },
+               {
+                  "name":"version",
+                  "in":"path",
+                  "description":"This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your environment, leave it at 1.0.",
+                  "required":true,
+                  "type":"string",
+                  "default":"1.0"
+               },
+               {
+                  "name":"Authorization",
+                  "in":"header",
+                  "description":"This is the authorization token that you retrieved from the first endpoint (/token).",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"Et-App-Key",
+                  "in":"header",
+                  "description":"This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful request, JSON data containing filtered orders is returned.",
+                  "schema":{
+                     "$ref":"#/definitions/PagingResult[OrderResource]"
+                  }
+               },
+               "400":{
+                  "description":"The filter query is invalid or contains unsupported operations."
+               },
+               "403":{
+                  "description":"The provided Et-App-Key is incorrect."
+               },
+               "500":{
+                  "description":"Internal server error"
+               },
+               "401":{
+                  "description":"The access level of the provided authorization token is not sufficient to perform this operation."
+               },
+               "422":{
+                  "description":"A validation error occurred while processing the request."
+               }
+            }
+         },
+         "post":{
+            "tags":[
+               "Orders"
+            ],
+            "summary":"Place an order",
+            "description":"This endpoint enables you to place a new order in ETNA Trader.",
+            "operationId":"Orders_PlaceOrder",
+            "consumes":[
+               "application/json",
+               "text/json"
+            ],
+            "produces":[
+               "application/json",
+               "text/json"
+            ],
+            "parameters":[
+               {
+                  "name":"placeParams",
+                  "in":"body",
+                  "description":"JSON data that contains information about the new order.",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/CreateOrderResource"
+                  }
+               },
+               {
+                  "name":"accountId",
+                  "in":"path",
+                  "description":"Unique identifier of the trading account on which a new order is to be verified.",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int32"
+               },
+               {
+                  "name":"userId",
+                  "in":"query",
+                  "description":"ID of the user on whose behalf the order will be placed (administrative functionality).",
+                  "required":false,
+                  "type":"integer",
+                  "format":"int32",
+                  "default":0
+               },
+               {
+                  "name":"currency",
+                  "in":"query",
+                  "description":"Currency in which the underlying security of the order is denominated.",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"exchange",
+                  "in":"query",
+                  "description":"Exchange on which the order should preferably be placed.",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"version",
+                  "in":"path",
+                  "description":"This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your environment, leave it at 1.0.",
+                  "required":true,
+                  "type":"string",
+                  "default":"1.0"
+               },
+               {
+                  "name":"Authorization",
+                  "in":"header",
+                  "description":"This is the authorization token that you retrieved from the first endpoint (/token).",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"Et-App-Key",
+                  "in":"header",
+                  "description":"This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful request, JSON data with the order information is returned, indicating that the order has been successfully placed on the platform.",
+                  "schema":{
+                     "$ref":"#/definitions/OrderResource"
+                  }
+               },
+               "403":{
+                  "description":"The provided Et-App-Key is incorrect."
+               },
+               "500":{
+                  "description":"Internal server error"
+               },
+               "401":{
+                  "description":"The access level of the provided authorization token is not sufficient to perform this operation."
+               },
+               "422":{
+                  "description":"A validation error occurred while processing the request."
+               }
+            }
+         }
+      },
+      "/v{version}/accounts/{accountId}/preview/orders/{orderId}":{
+         "put":{
+            "tags":[
+               "Orders"
+            ],
+            "summary":"Verify replacing an order",
+            "description":"This endpoint enables you to validate order modification.",
+            "operationId":"Orders_PreviewModifyOrder",
+            "consumes":[
+               "application/json",
+               "text/json"
+            ],
+            "produces":[
+               "application/json",
+               "text/json"
+            ],
+            "parameters":[
+               {
+                  "name":"modifyParams",
+                  "in":"body",
+                  "description":"JSON data that contains updated information about the order.",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/ModifyOrderResource"
+                  }
+               },
+               {
+                  "name":"orderId",
+                  "in":"path",
+                  "description":"ID of the order that needs to be modified.",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int32"
+               },
+               {
+                  "name":"accountId",
+                  "in":"path",
+                  "description":"Unique identifier of the trading account on which a new order is to be modified.",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int32"
+               },
+               {
+                  "name":"version",
+                  "in":"path",
+                  "description":"This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your environment, leave it at 1.0.",
+                  "required":true,
+                  "type":"string",
+                  "default":"1.0"
+               },
+               {
+                  "name":"Authorization",
+                  "in":"header",
+                  "description":"This is the authorization token that you retrieved from the first endpoint (/token).",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"Et-App-Key",
+                  "in":"header",
+                  "description":"This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful request, JSON data with the updated order information is returned, indicating if the order modification JSON is properly constructed (examine the isSuccessful parameter in the JSON data).",
+                  "schema":{
+                     "$ref":"#/definitions/OrderPreviewResource"
+                  }
+               },
+               "403":{
+                  "description":"The provided Et-App-Key is incorrect."
+               },
+               "500":{
+                  "description":"Internal server error"
+               },
+               "401":{
+                  "description":"The access level of the provided authorization token is not sufficient to perform this operation."
+               },
+               "422":{
+                  "description":"A validation error occurred while processing the request."
+               }
+            }
+         }
+      },
+      "/v{version}/accounts/{accountId}/preview/orders":{
+         "post":{
+            "tags":[
+               "Orders"
+            ],
+            "summary":"Verify placing an order",
+            "description":"This endpoint enables you to validate parameters of a new order before placing it on the platform.",
+            "operationId":"Orders_PreviewCreateOrder",
+            "consumes":[
+               "application/json",
+               "text/json"
+            ],
+            "produces":[
+               "application/json",
+               "text/json"
+            ],
+            "parameters":[
+               {
+                  "name":"placeParams",
+                  "in":"body",
+                  "description":"Parameters of the new order.",
+                  "required":true,
+                  "schema":{
+                     "$ref":"#/definitions/CreateOrderResource"
+                  }
+               },
+               {
+                  "name":"accountId",
+                  "in":"path",
+                  "description":"Unique identifier of the trading account on which a new order is to be verified.",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int32"
+               },
+               {
+                  "name":"currency",
+                  "in":"query",
+                  "description":"Currency in which the underlying security of the order is denominated.",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"exchange",
+                  "in":"query",
+                  "description":"Exchange on which the verified order should preferably be placed.",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"version",
+                  "in":"path",
+                  "description":"This is the version of the API. Unless you have multiple versions of ETNA Trader’s API deployed in your environment, leave it at 1.0.",
+                  "required":true,
+                  "type":"string",
+                  "default":"1.0"
+               },
+               {
+                  "name":"Authorization",
+                  "in":"header",
+                  "description":"This is the authorization token that you retrieved from the first endpoint (/token).",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"Et-App-Key",
+                  "in":"header",
+                  "description":"This is your app’s unique key that can be retrieved from the BO Companies widget in ETNA Trader.",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Successful request, JSON data with the order information is returned, indicating if the order is properly constructed (examine the isSuccessful parameter in the JSON data).",
+                  "schema":{
+                     "$ref":"#/definitions/OrderPreviewResource"
+                  }
+               },
+               "403":{
+                  "description":"The provided Et-App-Key is incorrect."
+               },
+               "500":{
+                  "description":"Internal server error"
+               },
+               "401":{
+                  "description":"The access level of the provided authorization token is not sufficient to perform this operation."
+               },
+               "422":{
+                  "description":"A validation error occurred while processing the request."
+               }
+            }
+         }
+      }
+   }
+}
